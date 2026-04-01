@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap');
+
+:root {
+  /* Primary Colors */
+  --primary-color: #00d4ff;
+  --secondary-color: #8a2be2;
+
+  /* Background Colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a2e;
+
+  /* Accent Colors */
+  --accent-primary: #64ffda;
+  --accent-secondary: #8a2be2;
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  --glass-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.3);
+
+  /* Legacy variables for backward compatibility */
+  --dark-bg: #0a0a0a;
+  --dark-section: #1a1a2e;
+  --text-light: #fff;
+  --text-muted: #ccc;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
