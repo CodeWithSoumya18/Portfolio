@@ -126,6 +126,6 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 👨‍💻 Author
 
 **Soumyashree Nayak**
-- Portfolio: [soumyashree.dev](https://soumyashree.dev)
-- LinkedIn: [linkedin.com/in/soumyashree](https://linkedin.com/in/soumyashree)
-- GitHub: [github.com/soumyashree](https://github.com/soumyashree)
+- Portfolio: [soumyashree.dev])
+- LinkedIn: [linkedin.com/in/soumyashree](https://linkedin.com/in/soumyashreenayak18)
+- GitHub: [github.com/soumyashree](https://github.com/CodeWithSoumya18)
