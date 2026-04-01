@@ -119,9 +119,7 @@ Project images should be placed in `public/` directory as:
 4. Push to the branch
 5. Open a Pull Request
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
+.
 
 ## 👨‍💻 Author
 
