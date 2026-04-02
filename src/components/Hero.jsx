@@ -5,35 +5,61 @@ import { FaDownload, FaUserTie } from 'react-icons/fa';
 import './Hero.css';
 
 const Hero = () => {
- const downloadResume = () => {
+ const downloadResume = async () => {
   const resumePath = "/Soumyashree_Nayak_Resume.pdf";
 
   console.log("Attempting to download resume from:", resumePath);
 
   try {
-    // Create a link to download the resume directly
-    const link = document.createElement("a");
-    link.href = resumePath;
-    link.download = "Soumyashree_Nayak_Resume.pdf";
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
+    // First try: Direct download using fetch
+    const response = await fetch(resumePath);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-    // Add to DOM and trigger click
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Soumyashree_Nayak_Resume.pdf";
+
     document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
 
-    console.log("Download initiated");
-
-    // Clean up
+    // Clean up the object URL
     setTimeout(() => {
-      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
     }, 100);
 
+    console.log("Resume download successful");
+
   } catch (error) {
-    console.error("Download failed:", error);
-    // Fallback: try to open in new tab
-    console.log("Trying fallback: opening in new tab");
-    window.open(resumePath, "_blank", "noopener,noreferrer");
+    console.error("Fetch download failed:", error);
+
+    // Fallback: Direct link approach
+    try {
+      const link = document.createElement("a");
+      link.href = resumePath;
+      link.download = "Soumyashree_Nayak_Resume.pdf";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+
+      document.body.appendChild(link);
+      link.click();
+
+      setTimeout(() => {
+        document.body.removeChild(link);
+      }, 100);
+
+      console.log("Fallback download initiated");
+
+    } catch (fallbackError) {
+      console.error("Fallback download failed:", fallbackError);
+      // Final fallback: open in new tab
+      window.open(resumePath, "_blank", "noopener,noreferrer");
+    }
   }
 };
 
