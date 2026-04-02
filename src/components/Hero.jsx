@@ -6,18 +6,34 @@ import './Hero.css';
 
 const Hero = () => {
  const downloadResume = () => {
+  const resumePath = "/Soumyashree_Nayak_Resume.pdf";
+
+  console.log("Attempting to download resume from:", resumePath);
+
   try {
     // Create a link to download the resume directly
     const link = document.createElement("a");
-    link.href = "/Soumyashree_Nayak_Resume.pdf"; // Resume file in public folder
+    link.href = resumePath;
     link.download = "Soumyashree_Nayak_Resume.pdf";
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+
+    // Add to DOM and trigger click
     document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+
+    console.log("Download initiated");
+
+    // Clean up
+    setTimeout(() => {
+      document.body.removeChild(link);
+    }, 100);
+
   } catch (error) {
     console.error("Download failed:", error);
     // Fallback: try to open in new tab
-    window.open("/Soumyashree_Nayak_Resume.pdf", "_blank");
+    console.log("Trying fallback: opening in new tab");
+    window.open(resumePath, "_blank", "noopener,noreferrer");
   }
 };
 
