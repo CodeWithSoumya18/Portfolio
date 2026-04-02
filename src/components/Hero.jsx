@@ -5,35 +5,19 @@ import { FaDownload, FaUserTie } from 'react-icons/fa';
 import './Hero.css';
 
 const Hero = () => {
- const downloadResume = async () => {
+ const downloadResume = () => {
   try {
-
-    const response = await fetch(
-      "http://localhost:5000/download-resume"
-    );
-
-    const blob = await response.blob();
-
-    const url = window.URL.createObjectURL(blob);
-
+    // Create a link to download the resume directly
     const link = document.createElement("a");
-
-    link.href = url;
-
+    link.href = "/Soumyashree_Nayak_Resume.pdf"; // Resume file in public folder
     link.download = "Soumyashree_Nayak_Resume.pdf";
-
     document.body.appendChild(link);
-
     link.click();
-
     document.body.removeChild(link);
-
-    window.URL.revokeObjectURL(url);
-
   } catch (error) {
-
     console.error("Download failed:", error);
-
+    // Fallback: try to open in new tab
+    window.open("/Soumyashree_Nayak_Resume.pdf", "_blank");
   }
 };
 
