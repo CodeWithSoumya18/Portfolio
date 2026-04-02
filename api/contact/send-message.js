@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer';
-import process from "process";
 
 export default async function handler(req, res) {
   // Only allow POST requests
