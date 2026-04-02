@@ -246,7 +246,7 @@ const Contact = () => {
 
     try {
 
-      const response = await fetch('/api/contact/send-message', {
+      const response = await fetch('/api/contact-send-message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
