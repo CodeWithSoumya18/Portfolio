@@ -73,11 +73,22 @@ const Projects = () => {
                 whileHover={{ y: -10 }}
               >
                 <div className="project-image-wrapper">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="project-image"
-                  />
+                  <div
+                    className="project-image-placeholder"
+                    style={{
+                      background: project.image.includes('project1') ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' :
+                                 project.image.includes('project2') ? 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' :
+                                 project.image.includes('project3') ? 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' :
+                                 project.image.includes('project6') ? 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' :
+                                 project.image.includes('project7') ? 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' :
+                                 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
+                    }}
+                  >
+                    <div className="project-placeholder-content">
+                      <h4>{project.title}</h4>
+                      <p>{project.technologies.slice(0, 2).join(' • ')}</p>
+                    </div>
+                  </div>
                   <div className="project-overlay">
                     <div className="project-links">
                       <motion.a
