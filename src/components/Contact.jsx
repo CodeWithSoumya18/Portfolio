@@ -244,54 +244,22 @@ const Contact = () => {
 
     e.preventDefault();
 
-    try {
+    // Direct mailto approach for now
+    const subject = encodeURIComponent(formData.subject);
+    const body = encodeURIComponent(
+      `Hi Soumyashree,\n\n${formData.message}\n\nBest regards,\n${formData.name}\n${formData.email}`
+    );
+    window.open(`mailto:8391soumyanayak@gmail.com?subject=${subject}&body=${body}`);
 
-      const response = await fetch('/api/contact-send-message', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+    alert("Opening your email client with the message pre-filled. If it doesn't open, please contact me directly at 8391soumyanayak@gmail.com");
 
-      const data = await response.json();
-
-      if (response.ok) {
-        alert(data.message);
-
-        // RESET FORM
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: ""
-        });
-      } else {
-        throw new Error(data.message || 'Failed to send message');
-      }
-
-    } catch (error) {
-
-      console.error('Contact form error:', error);
-
-      // Fallback: Open email client
-      const subject = encodeURIComponent(formData.subject);
-      const body = encodeURIComponent(
-        `Hi Soumyashree,\n\n${formData.message}\n\nBest regards,\n${formData.name}\n${formData.email}`
-      );
-      window.open(`mailto:8391soumyanayak@gmail.com?subject=${subject}&body=${body}`);
-
-      alert("Opening your email client as fallback... If it doesn't open, please contact me directly at 8391soumyanayak@gmail.com");
-
-      // RESET FORM even on error
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
-
-    }
+    // RESET FORM
+    setFormData({
+      name: "",
+      email: "",
+      subject: "",
+      message: ""
+    });
 
   };
 
