@@ -227,6 +227,13 @@ const Contact = () => {
     message: ""
   });
 
+  const [loading, setLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+
+
+  // API URL
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 
   // HANDLE INPUT CHANGE
 
@@ -246,17 +253,19 @@ const Contact = () => {
 
     // Validate form data
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-      alert("Please fill in all fields");
+      setStatusMessage("Please fill in all fields");
       return;
     }
 
+    setLoading(true);
+    setStatusMessage("");
+
     try {
-      // Send email directly using FormSubmit (no backend needed, free service)
-      const response = await fetch("https://formsubmit.co/ajax/8391soumyanayak@gmail.com", {
+      // Send email using backend API
+      const response = await fetch(`${API_URL}/api/send-email`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           name: formData.name,
@@ -268,22 +277,27 @@ const Contact = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        alert("Message sent successfully! I'll get back to you soon.");
+      if (data.success) {
+        setStatusMessage("✅ Message sent successfully! I'll get back to you soon.");
         
         // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: ""
-        });
+        setTimeout(() => {
+          setFormData({
+            name: "",
+            email: "",
+            subject: "",
+            message: ""
+          });
+          setStatusMessage("");
+        }, 2000);
       } else {
-        throw new Error("Failed to send message");
+        setStatusMessage("❌ Failed to send message: " + data.message);
       }
     } catch (error) {
       console.error("Error sending message:", error);
-      alert("Failed to send message. Please try again or email me directly at 8391soumyanayak@gmail.com");
+      setStatusMessage("❌ Error: " + error.message + ". Please try again.");
+    } finally {
+      setLoading(false);
     }
 
   };
@@ -482,10 +496,21 @@ const Contact = () => {
                 <motion.button
                   type="submit"
                   className="btn btn-primary w-100"
+                  disabled={loading}
                   whileHover={{ scale: 1.05 }}
                 >
-                  Send Message
+                  {loading ? "Sending..." : "Send Message"}
                 </motion.button>
+
+                {statusMessage && (
+                  <motion.div
+                    className="alert alert-info mt-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    {statusMessage}
+                  </motion.div>
+                )}
 
               </form>
 

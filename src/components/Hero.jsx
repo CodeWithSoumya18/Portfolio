@@ -5,7 +5,15 @@ import { FaDownload, FaEye } from 'react-icons/fa';
 import './Hero.css';
 
 const Hero = () => {
-  // No function needed for download - direct href is faster
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+  const handleViewResume = () => {
+    window.open(`${API_URL}/api/resume`, '_blank');
+  };
+
+  const handleDownloadResume = () => {
+    window.location.href = `${API_URL}/api/download-resume`;
+  };
 
   return (
     <section id="home" className="hero-section">
@@ -53,23 +61,21 @@ const Hero = () => {
                   className="btn btn-primary me-3"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => window.open('/Soumyashree_Nayak_Resume.pdf', '_blank')}
+                  onClick={handleViewResume}
                 >
                   <FaEye className="me-2" />
                   View Resume
                 </motion.button>
 
-                <motion.a
-                  href="/Soumyashree_Nayak_Resume.pdf"
-                  download="Soumyashree_Nayak_Resume.pdf"
+                <motion.button
                   className="btn btn-outline-light"
-                  style={{ textDecoration: 'none' }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  onClick={handleDownloadResume}
                 >
                   <FaDownload className="me-2" />
                   Download Resume
-                </motion.a>
+                </motion.button>
               </div>
             </motion.div>
           </div>
