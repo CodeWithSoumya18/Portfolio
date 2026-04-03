@@ -5,16 +5,7 @@ import { FaDownload, FaEye } from 'react-icons/fa';
 import './Hero.css';
 
 const Hero = () => {
-  const downloadResume = () => {
-    const link = document.createElement('a');
-    link.href = '/Soumyashree_Nayak_Resume.pdf';
-    link.download = 'Soumyashree_Nayak_Resume.pdf';
-    link.style.display = 'none';
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  // No function needed for download - direct href is faster
 
   return (
     <section id="home" className="hero-section">
@@ -68,15 +59,17 @@ const Hero = () => {
                   View Resume
                 </motion.button>
 
-                <motion.button
+                <motion.a
+                  href="/Soumyashree_Nayak_Resume.pdf"
+                  download="Soumyashree_Nayak_Resume.pdf"
                   className="btn btn-outline-light"
+                  style={{ textDecoration: 'none' }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={downloadResume}
                 >
                   <FaDownload className="me-2" />
                   Download Resume
-                </motion.button>
+                </motion.a>
               </div>
             </motion.div>
           </div>

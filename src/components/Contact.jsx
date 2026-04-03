@@ -240,7 +240,7 @@ const Contact = () => {
 
   // HANDLE FORM SUBMIT
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
 
@@ -250,24 +250,41 @@ const Contact = () => {
       return;
     }
 
-    // Direct mailto approach - opens user's email client
-    const subject = encodeURIComponent(formData.subject);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    
-    // Open default email client
-    window.location.href = `mailto:8391soumyanayak@gmail.com?subject=${subject}&body=${body}`;
-
-    // Reset form after a short delay
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
+    try {
+      // Send email directly using FormSubmit (no backend needed, free service)
+      const response = await fetch("https://formsubmit.co/ajax/8391soumyanayak@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        })
       });
-    }, 100);
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Message sent successfully! I'll get back to you soon.");
+        
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: ""
+        });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      alert("Failed to send message. Please try again or email me directly at 8391soumyanayak@gmail.com");
+    }
 
   };
 
