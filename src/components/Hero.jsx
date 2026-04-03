@@ -5,63 +5,16 @@ import { FaDownload, FaEye } from 'react-icons/fa';
 import './Hero.css';
 
 const Hero = () => {
- const downloadResume = async () => {
-  const resumePath = "/Soumyashree_Nayak_Resume.pdf";
-
-  console.log("Attempting to download resume from:", resumePath);
-
-  try {
-    // First try: Direct download using fetch
-    const response = await fetch(resumePath);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "Soumyashree_Nayak_Resume.pdf";
-
+  const downloadResume = () => {
+    const link = document.createElement('a');
+    link.href = '/Soumyashree_Nayak_Resume.pdf';
+    link.download = 'Soumyashree_Nayak_Resume.pdf';
+    link.style.display = 'none';
+    
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-    // Clean up the object URL
-    setTimeout(() => {
-      window.URL.revokeObjectURL(url);
-    }, 100);
-
-    console.log("Resume download successful");
-
-  } catch (error) {
-    console.error("Fetch download failed:", error);
-
-    // Fallback: Direct link approach
-    try {
-      const link = document.createElement("a");
-      link.href = resumePath;
-      link.download = "Soumyashree_Nayak_Resume.pdf";
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-
-      document.body.appendChild(link);
-      link.click();
-
-      setTimeout(() => {
-        document.body.removeChild(link);
-      }, 100);
-
-      console.log("Fallback download initiated");
-
-    } catch (fallbackError) {
-      console.error("Fallback download failed:", fallbackError);
-      // Final fallback: open in new tab
-      window.open(resumePath, "_blank", "noopener,noreferrer");
-    }
-  }
-};
+  };
 
   return (
     <section id="home" className="hero-section">
