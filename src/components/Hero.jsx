@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import { FaDownload, FaUserTie } from 'react-icons/fa';
+import { FaDownload, FaEye } from 'react-icons/fa';
 import './Hero.css';
 
 const Hero = () => {
@@ -109,10 +109,10 @@ const Hero = () => {
                   className="btn btn-primary me-3"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => window.open('/Soumyashree_Nayak_Resume.pdf', '_blank')}
                 >
-                  <FaUserTie className="me-2" />
-                  Hire Me
+                  <FaEye className="me-2" />
+                  View Resume
                 </motion.button>
 
                 <motion.button

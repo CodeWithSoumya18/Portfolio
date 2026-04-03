@@ -240,26 +240,34 @@ const Contact = () => {
 
   // HANDLE FORM SUBMIT
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
 
     e.preventDefault();
 
-    // Direct mailto approach for now
+    // Validate form data
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    // Direct mailto approach - opens user's email client
     const subject = encodeURIComponent(formData.subject);
     const body = encodeURIComponent(
-      `Hi Soumyashree,\n\n${formData.message}\n\nBest regards,\n${formData.name}\n${formData.email}`
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
     );
-    window.open(`mailto:8391soumyanayak@gmail.com?subject=${subject}&body=${body}`);
+    
+    // Open default email client
+    window.location.href = `mailto:8391soumyanayak@gmail.com?subject=${subject}&body=${body}`;
 
-    alert("Opening your email client with the message pre-filled. If it doesn't open, please contact me directly at 8391soumyanayak@gmail.com");
-
-    // RESET FORM
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: ""
-    });
+    // Reset form after a short delay
+    setTimeout(() => {
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+      });
+    }, 100);
 
   };
 
